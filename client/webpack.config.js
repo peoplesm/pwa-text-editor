@@ -4,7 +4,7 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-// TODO: Add and configure workbox plugins for a service worker and manifest file.
+// TODO: Add and configure workbox plugins for a service worker and manifest file. DONE
 // TODO: Add CSS loaders and babel to webpack. DONE
 
 module.exports = () => {
@@ -18,6 +18,7 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      assetModuleFilename: '[name][ext]',
     },
 
     plugins: [
@@ -25,6 +26,7 @@ module.exports = () => {
         template: './index.html',
         title: 'Just Another Text Editor',
         filename: 'index.html',
+        favicon: './favicon.ico',
       }),
       new MiniCssExtractPlugin(),
       new InjectManifest({
@@ -32,9 +34,28 @@ module.exports = () => {
         swDest: 'service-worker.js',
       }),
 
-      //Create Manifest.json
+      //Create Manifest.json DONE
       new WebpackPwaManifest({
         //TODO
+        fingerprints: false,
+        inject: true,
+        ios: true,
+        name: 'Just Another Text Editor',
+        short_name: 'JATE',
+        description: 'Text Editor PWA',
+        background_color: '#225ca3',
+        theme_color: '#225ca3',
+        orientation: 'portrait',
+        display: 'standalone',
+        start_url: './',
+        publicPath: './',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('images'),
+          },
+        ],
       }),
     ],
 
@@ -42,7 +63,7 @@ module.exports = () => {
       rules: [
         {
           test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
+          use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
           test: /\.m?js$/,
@@ -59,7 +80,7 @@ module.exports = () => {
           },
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
           type: 'asset/resource',
         },
       ],
