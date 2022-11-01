@@ -18,7 +18,7 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
-      assetModuleFilename: '[name][ext]',
+      publicPath: '',
       clean: true,
     },
 
@@ -32,7 +32,7 @@ module.exports = () => {
       new MiniCssExtractPlugin(),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'service-worker.js',
+        swDest: 'src-sw.js',
       }),
 
       //Create Manifest.json DONE
@@ -50,7 +50,6 @@ module.exports = () => {
         orientation: 'portrait',
         display: 'standalone',
         start_url: './',
-        publicPath: './',
         icons: [
           {
             src: path.resolve('src/images/logo.png'),
@@ -84,6 +83,9 @@ module.exports = () => {
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
           type: 'asset/resource',
+          generator: {
+            filename: 'images/[name][ext]',
+          },
         },
       ],
     },
