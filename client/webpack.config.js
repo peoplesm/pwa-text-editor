@@ -1,8 +1,8 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
+const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // TODO: Add and configure workbox plugins for a service worker and manifest file. DONE
 // TODO: Add CSS loaders and babel to webpack. DONE
@@ -18,30 +18,24 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: '',
       clean: true,
     },
 
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'Just Another Text Editor',
-        filename: 'index.html',
+        title: 'Webpack Plugin',
         favicon: './favicon.ico',
       }),
       new MiniCssExtractPlugin(),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'src-sw.js',
+        // swDest: 'service-worker.js',
       }),
 
       //Create Manifest.json DONE
       new WebpackPwaManifest({
         //TODO
-        filename: 'manifest.json',
-        fingerprints: false,
-        inject: true,
-        ios: true,
         name: 'Just Another Text Editor',
         short_name: 'JATE',
         description: 'Text Editor PWA',
@@ -50,6 +44,11 @@ module.exports = () => {
         orientation: 'portrait',
         display: 'standalone',
         start_url: './',
+        publicPath: './',
+        crossorigin: null,
+        fingerprints: false,
+        inject: true,
+        ios: true,
         icons: [
           {
             src: path.resolve('src/images/logo.png'),
