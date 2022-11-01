@@ -1,7 +1,7 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
 // TODO: Add and configure workbox plugins for a service worker and manifest file. DONE
@@ -19,6 +19,7 @@ module.exports = () => {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
       assetModuleFilename: '[name][ext]',
+      clean: true,
     },
 
     plugins: [
@@ -37,6 +38,7 @@ module.exports = () => {
       //Create Manifest.json DONE
       new WebpackPwaManifest({
         //TODO
+        filename: 'manifest.json',
         fingerprints: false,
         inject: true,
         ios: true,
