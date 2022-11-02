@@ -21,16 +21,17 @@ module.exports = () => {
       clean: true,
     },
 
+    //Plugins
+    //HTMLwebpack must come before pwamanifest
     plugins: [
       new HtmlWebpackPlugin({
+        title: 'Just Another Text Editor',
         template: './index.html',
-        title: 'Webpack Plugin',
         favicon: './favicon.ico',
       }),
       new MiniCssExtractPlugin(),
       new InjectManifest({
         swSrc: './src-sw.js',
-        // swDest: 'service-worker.js',
       }),
 
       //Create Manifest.json DONE
@@ -45,8 +46,8 @@ module.exports = () => {
         display: 'standalone',
         start_url: './',
         publicPath: './',
-        crossorigin: null,
         fingerprints: false,
+        // Apple specific meta tags inserted with the following two lines
         inject: true,
         ios: true,
         icons: [
@@ -82,6 +83,7 @@ module.exports = () => {
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
           type: 'asset/resource',
+          // Makes it so the generated images don't have a random filename
           generator: {
             filename: 'images/[name][ext]',
           },
