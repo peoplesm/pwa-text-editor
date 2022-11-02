@@ -7,7 +7,7 @@ This assignment was to build a text editor that runs in the browser and feature.
 - [Skills Practiced](#skills-practiced)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Screenshots](#screeenshots)
+- [Screenshot](#screeenshot)
 - [Deployed App](#link-to-deployed-app)
 - [Questions](#questions)
 
@@ -33,7 +33,7 @@ If you want to download the app locally follow these steps.
 
 Allows a user to save and edit text online and offline.
 
-## Screeenshots
+## Screeenshot
 
 ![alt text](./assets/pwa-text-editor-ss.png)
 
